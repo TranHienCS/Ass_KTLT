@@ -126,7 +126,7 @@ void GiangVien::SuaDiem() {
 }
 GiangVien::~GiangVien() {
 }
-
+//Tran Van Hien
 //int main() {
 //	GiangVien gv;
 //	gv.MoMonHoc();
