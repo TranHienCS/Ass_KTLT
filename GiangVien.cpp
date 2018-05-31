@@ -71,6 +71,7 @@ void GiangVien::MoMonHoc() {
 void GiangVien::changePass() {
 	cout << "Nhap Mat Khau cu: ";
 	string str1, str2, pass, temp, user, type;
+	
 	cin >> str1;
 	ifstream f;
 	f.open("curuser.csv", ios::out);
@@ -95,27 +96,53 @@ void GiangVien::changePass() {
 	}
 	f.close();
 	ifstream f1;
-	string s1, s2, s3;
+	string s1, s2, s3,stam;
 
 	f1.open("user.csv", ios::out);
 	fstream ftam;
 	ftam.open("usertam.csv", ios::app);
 	int i = 0;
 	while (!f1.eof()) {
+		getline(f1, stam);
+		i++;
+	}
+	f1.close();
+	f1.open("user.csv", ios::out);
+	cout << i << endl;
+	int k = 0;
+	while (!f1.eof()) {
+
 		getline(f1, s1, ',');
 		getline(f1, s2, ',');
 		getline(f1, s3);
-
-		if (s1 == user) {
-			ftam << user << "," << str1 << "," << type << endl;
+		if (k != i-1) {
+			if (s1 == user) {
+				ftam << user << "," << str1 << "," << type << endl;
+				k++;
+			}
+			else {
+				ftam << s1 << "," << s2 << "," << s3 << endl;
+				k++;
+			}
 		}
-		else
-			ftam << s1 << "," << s2 << "," << s3 << endl;
+		else {
+			if (s1 == user) {
+				ftam << user << "," << str1 << "," << type;
+				k++;
+			}
+			else {
+				ftam << s1 << "," << s2 << "," << s3;
+				k++;
+			}
+		}
 	}
+
+
 	f1.close();
 	ftam.close();
 	remove("user.csv");
 	rename("usertam.csv", "user.csv");
+	system("pause");
 }
 
 void GiangVien::TongKetDiem() {
