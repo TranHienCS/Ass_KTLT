@@ -27,5 +27,6 @@ public:
 	void MoMonHoc();
 	void SuaDiem();
 	void TongKetDiem();
+	void ScreenGV();
 	~GiangVien();
 };
