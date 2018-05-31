@@ -1,4 +1,5 @@
 #include "GiangVien.h"
+#include "DangNhap.h"
 
 
 
@@ -71,15 +72,14 @@ void GiangVien::MoMonHoc() {
 void GiangVien::changePass() {
 	cout << "Nhap Mat Khau cu: ";
 	string str1, str2, pass, temp, user, type;
-	
 	cin >> str1;
 	ifstream f;
 	f.open("curuser.csv", ios::out);
 	if (f.fail()) {
 		cout << "Failed to open this file! " << endl;
+		system("pause");
 		return;
 	}
-
 	else {
 		getline(f, user, ',');
 		getline(f, pass, ',');
@@ -108,13 +108,13 @@ void GiangVien::changePass() {
 	}
 	f1.close();
 	f1.open("user.csv", ios::out);
-	cout << i << endl;
+
 	int k = 0;
 	while (!f1.eof()) {
-
 		getline(f1, s1, ',');
 		getline(f1, s2, ',');
 		getline(f1, s3);
+		if (s1 == "") break;
 		if (k != i-1) {
 			if (s1 == user) {
 				ftam << user << "," << str1 << "," << type << endl;
@@ -137,7 +137,6 @@ void GiangVien::changePass() {
 		}
 	}
 
-
 	f1.close();
 	ftam.close();
 	remove("user.csv");
@@ -151,13 +150,44 @@ void GiangVien::TongKetDiem() {
 void GiangVien::SuaDiem() {
 
 }
+
+void GiangVien::ScreenGV() {
+	system("cls");
+	cout << "WELCOM TEACHER!" << endl;
+	cout << "__________________" << endl;
+	cout << "1. Mo Mon Hoc." << endl;
+	cout << "2. Tong Ket Diem." << endl;
+	cout << "3. Sua Diem." << endl;
+	cout << "4. Doi Mat Khau." << endl;
+	cout << "5. Dang Xuat." << endl;
+	cout << "6. Thoat." << endl;
+	int chon;
+	DangNhap d;
+	cin >> chon;
+	switch (chon)
+	{
+	case 1:
+		MoMonHoc();
+		ScreenGV();
+	case 2:
+		TongKetDiem();
+		ScreenGV();
+	case 3:SuaDiem();
+		ScreenGV();
+	case 4:changePass();
+		ScreenGV();
+	case 5:cin.ignore();
+		rm;
+		d.Login();
+		
+	case 6:	rm;
+		break;
+	
+	default:
+		cout << "Lua chon khong dung!" << endl;
+		system("pause");
+		ScreenGV();
+	}
+}
 GiangVien::~GiangVien() {
 }
-//Tran Van Hien
-//int main() {
-//	GiangVien gv;
-//	gv.MoMonHoc();
-////	gv.changePass();
-////	system("pause");
-////	return 1;
-//}
