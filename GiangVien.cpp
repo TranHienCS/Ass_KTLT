@@ -27,46 +27,71 @@ bool GiangVien::checkmh(Monhoc a) {
 }
 
 void GiangVien::MoMonHoc() {
-	string IDcur, IDu, temp, hk;
-	ifstream fobj;
+	string kh_ID, gv_ID, temp, IDcur, hk;
+	ifstream fcou;
 	ifstream fcur;
 	fcur.open("curuser.csv", ios::out);
 	getline(fcur, IDcur, ',');
-	fobj.open("object.csv", ios::out);
-	int max_obj = 0;
-	while (!fobj.eof()) {
-		getline(fobj, temp, ',');
-		getline(fobj, temp, ',');
-		getline(fobj, IDu, ',');
-		getline(fobj, temp, ',');
-		getline(fobj, hk);
-		if (IDu == IDcur&&hk == "171") {
-			max_obj++;
+	
+	cout << "Nhap Thong Tin Mon Hoc:" << endl;
+	Monhoc mh;
+	cout << "Nhap ma mon hoc: ";
+	cin >> mh.ID_MonHoc;
+	cout << "Nhap ma Giang vien: ";
+	cin >> mh.ID_Giangvien;
+	while (mh.ID_Giangvien != IDcur) {
+		cout << "Nhap Sai Ma! Moi nhap lai:" << endl;
+		cin >> mh.ID_Giangvien;
+	}
+	cout << "Nhap Ten mon hoc: ";
+	cin.ignore();
+	getline(cin, mh.Ten_MonHoc);
+	cout << "Nhap So luong Sinh vien: ";
+	cin >> mh.slot;
+	cout << "Nhap hoc ki muon mo: ";
+	cin >> mh.hocki;
+	int hocki;
+	fcou.open("course.csv", ios::out);
+	if (fcou.fail()) {
+		cout << "Failed to open this file! " << endl;
+		system("pause");
+		return;
+	}
+	int max_cou = 0;
+	while (!fcou.eof()) {
+		getline(fcou, temp, ',');
+		getline(fcou, gv_ID,',');
+		getline(fcou, temp, ',');
+		getline(fcou, temp, ',');
+		getline(fcou, temp, ',');
+		getline(fcou, hk);
+		hocki = atoi(hk.c_str());
+		if (gv_ID == IDcur&&hocki == mh.hocki) {
+			max_cou++;
 		}
 	}
-	if (max_obj <= 5) {
-		cout << "Nhap Thong Tin Mon Hoc:" << endl;
-		Monhoc mh;
-		cout << "Nhap ma mon hoc: ";
-		cin >> mh.ID_MonHoc;
-		cout << "Nhap ma Giang vien: ";
-		cin >> mh.ID_Giangvien;
-		cout << "Nhap Ten mon hoc: ";
-		cin.ignore();
-		getline(cin, mh.Ten_MonHoc);
-		cout << "Nhap So luong Sinh vien: ";
-		cin >> mh.slot;
+	if (max_cou < 5) {
 		ofstream f;
-		f.open("course.csv", ios::out | ios::app);
+		f.open("course.csv",  ios::app);
 		if (f.fail())
 			cout << "Failed to open this file course.csv!" << endl;
 		else {
-			f << mh.ID_Giangvien << "," << mh.ID_Giangvien << "," << mh.Ten_MonHoc << "," << mh.SLSV << "," << mh.slot << endl;
+			f << mh.ID_MonHoc << "," << mh.ID_Giangvien << "," << mh.Ten_MonHoc << "," << mh.SLSV << "," << mh.slot <<mh.hocki<< endl;
+			cout << "Mo Mon hoc thanh cong!" << endl;
+			system("pause");
 		}
 		f.close();
 	}
-	else cout << "Ban chi duoc phep mo 5 mon hoc trong hoc ki nay! " << endl;
-	fobj.close();
+	else {
+		cout << "Ban chi mo duoc toi da 5 mon hoc trong hoc ki!" << endl;
+		system("pause");
+	}
+	//
+	
+
+	
+//	else cout << "Ban chi duoc phep mo 5 mon hoc trong hoc ki nay! " << endl;
+	fcou.close();
 	fcur.close();
 }
 void GiangVien::changePass() {
@@ -163,23 +188,27 @@ void GiangVien::ScreenGV() {
 	cout << "6. Thoat." << endl;
 	int chon;
 	DangNhap d;
+	cout << "Nhap Lua chon: ";
 	cin >> chon;
 	switch (chon)
 	{
 	case 1:
 		MoMonHoc();
 		ScreenGV();
+		break;
 	case 2:
 		TongKetDiem();
 		ScreenGV();
+		break;
 	case 3:SuaDiem();
 		ScreenGV();
+		break;
 	case 4:changePass();
 		ScreenGV();
+		break;
 	case 5:cin.ignore();
 		rm;
 		d.Login();
-		
 	case 6:	rm;
 		break;
 	
@@ -191,3 +220,11 @@ void GiangVien::ScreenGV() {
 }
 GiangVien::~GiangVien() {
 }
+
+//int main() {
+//	GiangVien gv;
+//	gv.MoMonHoc();
+////	gv.changePass();
+////	system("pause");
+////	return 1;
+//}
