@@ -2,8 +2,8 @@
 #include "Admin.h"
 #include "GiangVien.h"
 #include "SinhVien.h"
-#include<iostream>;
-#include<string>;
+#include<iostream>
+#include<string>
 #include<fstream>
 using namespace std;
 
