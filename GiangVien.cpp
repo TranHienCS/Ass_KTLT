@@ -28,9 +28,9 @@ bool GiangVien::checkmh(Monhoc a) {
 
 void GiangVien::MoMonHoc() {
 	string kh_ID, gv_ID, temp, IDcur, hk;
-	ifstream fcou;
-	ifstream fcur;
-	fcur.open("curuser.csv", ios::out);
+	fstream fcou;
+	fstream fcur;
+	fcur.open("curuser.csv", ios::in);
 	getline(fcur, IDcur, ',');
 	
 	cout << "Nhap Thong Tin Mon Hoc:" << endl;
@@ -51,7 +51,7 @@ void GiangVien::MoMonHoc() {
 	cout << "Nhap hoc ki muon mo: ";
 	cin >> mh.hocki;
 	int hocki;
-	fcou.open("course.csv", ios::out);
+	fcou.open("course.csv", ios::in);
 	if (fcou.fail()) {
 		cout << "Failed to open this file! " << endl;
 		system("pause");
@@ -71,7 +71,7 @@ void GiangVien::MoMonHoc() {
 		}
 	}
 	if (max_cou < 5) {
-		ofstream f;
+		fstream f;
 		f.open("course.csv",  ios::app);
 		if (f.fail())
 			cout << "Failed to open this file course.csv!" << endl;
@@ -98,8 +98,8 @@ void GiangVien::changePass() {
 	cout << "Nhap Mat Khau cu: ";
 	string str1, str2, pass, temp, user, type;
 	cin >> str1;
-	ifstream f;
-	f.open("curuser.csv", ios::out);
+	fstream f;
+	f.open("curuser.csv", ios::in);
 	if (f.fail()) {
 		cout << "Failed to open this file! " << endl;
 		system("pause");
@@ -120,10 +120,9 @@ void GiangVien::changePass() {
 		cout << "Doi Mat Khau Thanh Cong ! " << endl;
 	}
 	f.close();
-	ifstream f1;
+	fstream f1;
 	string s1, s2, s3,stam;
-
-	f1.open("user.csv", ios::out);
+	f1.open("user.csv", ios::in);
 	fstream ftam;
 	ftam.open("usertam.csv", ios::app);
 	int i = 0;
@@ -132,7 +131,7 @@ void GiangVien::changePass() {
 		i++;
 	}
 	f1.close();
-	f1.open("user.csv", ios::out);
+	f1.open("user.csv", ios::in);
 
 	int k = 0;
 	while (!f1.eof()) {
