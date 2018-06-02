@@ -4,14 +4,20 @@
 #include<fstream>
 #include<sstream>
 #include<iomanip>
+#include<stdlib.h>
 
 using namespace std;
-
-class GiangVien
+struct giangvien {
+	string ID_GV;
+	string FullName, BirthDay, phoneNumber, Address;
+};
+class GiangVien 
 {
 private:
 	string ID_GV;
 	string FullName, BirthDay, phoneNumber, Address;
+
+	
 public:
 	struct Monhoc {
 		string ID_MonHoc;
@@ -19,7 +25,13 @@ public:
 		string Ten_MonHoc;
 		int SLSV;
 		int slot;
+		int hocki;
 		Monhoc() { SLSV = 0; }
+	};
+	struct user {
+		string ID;
+		string pass;
+		string type;
 	};
 	GiangVien();
 	bool checkmh(Monhoc a);
